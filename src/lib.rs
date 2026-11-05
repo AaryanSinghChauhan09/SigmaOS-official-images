@@ -7,14 +7,14 @@ use std::fmt;
 
 /// Errors produced by this component. Fail-fast: errors are returned, not panicked.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub enum Sigmaos_official_imagesError {
+pub enum OfficialImagesError {
     /// The requested operation is not valid in the current state.
     InvalidState,
     /// Input failed validation.
     InvalidInput(String),
 }
 
-impl fmt::Display for Sigmaos_official_imagesError {
+impl fmt::Display for OfficialImagesError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::InvalidState => write!(f, "invalid state"),
@@ -23,20 +23,20 @@ impl fmt::Display for Sigmaos_official_imagesError {
     }
 }
 
-impl std::error::Error for Sigmaos_official_imagesError {}
+impl std::error::Error for OfficialImagesError {}
 
 /// Core component type. Holds configuration; performs no I/O by default.
 #[derive(Debug, Clone, Default)]
-pub struct Sigmaos_official_images {
+pub struct OfficialImages {
     name: String,
 }
 
-impl Sigmaos_official_images {
+impl OfficialImages {
     /// Create a new component instance. Fails fast on empty names.
-    pub fn new(name: impl Into<String>) -> Result<Self, Sigmaos_official_imagesError> {
+    pub fn new(name: impl Into<String>) -> Result<Self, OfficialImagesError> {
         let name = name.into();
         if name.trim().is_empty() {
-            return Err(Sigmaos_official_imagesError::InvalidInput("name must not be empty".into()));
+            return Err(OfficialImagesError::InvalidInput("name must not be empty".into()));
         }
         Ok(Self { name })
     }
@@ -47,9 +47,9 @@ impl Sigmaos_official_images {
     }
 
     /// Perform the component's primary action. Returns a deterministic result.
-    pub fn run(&self) -> Result<String, Sigmaos_official_imagesError> {
+    pub fn run(&self) -> Result<String, OfficialImagesError> {
         if self.name.is_empty() {
-            return Err(Sigmaos_official_imagesError::InvalidState);
+            return Err(OfficialImagesError::InvalidState);
         }
         Ok(format!("{}: ok", self.name))
     }
@@ -62,18 +62,18 @@ mod tests {
     #[test]
     fn new_rejects_empty_name() {
         // Arrange / Act / Assert
-        assert!(matches!(Sigmaos_official_images::new("  "), Err(Sigmaos_official_imagesError::InvalidInput(_))));
+        assert!(matches!(OfficialImages::new("  "), Err(OfficialImagesError::InvalidInput(_))));
     }
 
     #[test]
     fn run_returns_deterministic_result() {
-        let c = Sigmaos_official_images::new("test").unwrap();
+        let c = OfficialImages::new("test").unwrap();
         assert_eq!(c.run().unwrap(), "test: ok");
     }
 
     #[test]
     fn name_is_accessible() {
-        let c = Sigmaos_official_images::new("abc").unwrap();
+        let c = OfficialImages::new("abc").unwrap();
         assert_eq!(c.name(), "abc");
     }
 }
