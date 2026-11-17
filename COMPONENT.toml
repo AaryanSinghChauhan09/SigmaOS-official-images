@@ -3,7 +3,7 @@ name = "SigmaOS-official-images"
 tier = 2
 stability = "scaffold"
 language = "rust"
-description = "official-images component"
+description = "SigmaOS official-images component (Arch Linux inspired)"
 upstream = []
 
 [contract]
