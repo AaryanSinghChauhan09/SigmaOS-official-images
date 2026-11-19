@@ -1,8 +1,15 @@
 [package]
-name = "sigmaos-official-images"
+name = "SigmaOS-official-images"
 version = "0.1.0"
 edition = "2021"
-license = "MIT"
-description = "Official container base image definitions — SigmaOS component inspired by Arch Linux infrastructure."
+license = "Apache-2.0"
+description = "SigmaOS official_images component"
+
+[lib]
+name = "official_images"
+path = "src/lib.rs"
 
 [dependencies]
+thiserror = "1"
+
+[dev-dependencies]
