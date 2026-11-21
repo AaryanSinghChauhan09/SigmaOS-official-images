@@ -1,16 +1,16 @@
 [component]
 name = "SigmaOS-official-images"
 tier = 2
-stability = "scaffold"
+stability = "beta"
 language = "rust"
 description = "SigmaOS official-images component (Arch Linux inspired)"
-upstream = []
+upstream = ["https://github.com/archlinux/official-images"]
 
 [contract]
-provides = ["component"]
+provides = ["image-template", "dockerfile-render", "release-tags"]
 depends_on = []
 
 [maturity]
 status = "Implemented"
-test_evidence = "Compiles and passes AAA unit tests"
+test_evidence = "cargo test: 5 tests pass (template render, image defs, tag plan)"
 next_milestone = "Hardware and runtime integration"
